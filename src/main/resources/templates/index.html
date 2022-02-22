@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index page</title>
+</head>
+<body>
+<h1>Hello KPP</h1>
+
+<hr>
+
+<table>
+    <tr>
+        <th>Icon</th>
+        <th>App Name</th>
+    </tr>
+    <tr th:each="app : ${appList}">
+        <td>
+            <span th:text="${app.iconImg}"></span>
+        </td>
+        <td>
+            <a th:text="${app.appName}" th:href="${app.url}"></a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
