@@ -12,7 +12,6 @@ public class AppList {
 
     private final List<App> appList = new ArrayList<>();
     public AppList() {
-        System.out.println("AppList.AppList" + this);
     }
 
     public void addApp(Class c, String appName, String url, String iconImg){

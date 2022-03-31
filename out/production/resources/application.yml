@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/datajpa
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  #datasource:
+  #  driver-class-name: org.postgresql.Driver
+  #  url: jdbc:postgresql://localhost:5432/test
+  #  platform: postgres
+  #  username: postgres
+  #  password:
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: test_docs
+
+
+logging.level:
+  org.hibernate.SQL: info
+#  org.hibernate.type: trace
