@@ -107,8 +107,13 @@ public class MemoryChatRepositoryManager implements ChatRepositoryManager {
     }
 
     @Override
-    public void saveMember(String name, MemberGrade grade) {
+    public boolean saveMember(String name, MemberGrade grade) {
+        return false;
+    }
 
+    @Override
+    public boolean existsByUserName(String name) {
+        return false;
     }
 
     @PostConstruct

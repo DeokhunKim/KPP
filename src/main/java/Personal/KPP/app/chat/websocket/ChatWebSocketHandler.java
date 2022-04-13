@@ -3,6 +3,7 @@ package Personal.KPP.app.chat.websocket;
 import Personal.KPP.app.chat.bot.ChatBotManager;
 import Personal.KPP.app.chat.domain.ChatDto;
 import Personal.KPP.app.chat.domain.ChatLogDto;
+import Personal.KPP.app.chat.storage.entity.mongo.RoomInfo;
 import Personal.KPP.app.chat.storage.manager.ChatRepositoryManager;
 import Personal.KPP.app.chat.domain.RoomInfoDto;
 import Personal.KPP.app.chat.session.ChatSessionConst;
@@ -21,6 +22,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static Personal.KPP.app.chat.websocket.html.HtmlCreator.MyChat;
@@ -82,6 +85,9 @@ public class  ChatWebSocketHandler extends TextWebSocketHandler {
             case WRITE:
                 handleTextMessage_WRITE(session, msg);
                 break;
+            case ADD_ROOM:
+                handleTextMessage_ADD_ROOM(session, msg);
+                break;
             case CREATE_CHATLIST:
                 ShandleTextMessage_CREATE_CHATLIST(session, msg.getRoomId());
                 break;
@@ -92,6 +98,7 @@ public class  ChatWebSocketHandler extends TextWebSocketHandler {
      * 누군가 처음으로 Socket에 접속했을 때 수행
      * 1. 대화방 목록을 조회하여 대화방 div 를 생성하여 브라우저에 전달
      * 2. 맨위 대화방을 찾아서 그 대화방 내용 div 를 생성하여 브라우저에 전달
+
      */
     private void handleTextMessage_CONNECT(WebSocketSession session) throws IOException {
         List<RoomInfoDto> roomList = repository.getRoomListByUserName(getUserName(session));
@@ -178,6 +185,54 @@ public class  ChatWebSocketHandler extends TextWebSocketHandler {
             }
         }
     }
+
+    /**
+     * 누군가가 대화방을 생성했을 때 수행된다
+     * 1. 유효성 검사
+     * 1-1. 요청한 아이디의 유저가 실존하는지 확인
+     * 1-2. 이미 만들어진 방이 있는지 확인
+     * 2. 해당 유저의 room 개설
+     * 3. 만들어진 대화방 갱신 요청
+     * 3-1. 나에게
+     * 3-2. 상대에게
+     */
+    private void handleTextMessage_ADD_ROOM(WebSocketSession session, SocketMessageForm msg) throws IOException {
+        final String otherMember = msg.getMessage();
+
+        //1-1.
+        if (false == repository.existsByUserName(otherMember)) {
+            return;
+        }
+
+        //1-2.
+        List<RoomInfoDto> roomListByUserName = repository.getRoomListByUserName(msg.getWriter());
+        for (RoomInfoDto roomInfoDto : roomListByUserName) {
+            for (String member : roomInfoDto.getMembers()) {
+                if (otherMember.equals(member)) {
+                    return;
+                }
+            }
+        }
+
+        //2.
+        String RoomId = repository.createNewRoom(msg.getWriter()+", "+otherMember +" 대화방",
+                new ArrayList<String>(Arrays.asList(msg.getWriter(), otherMember) ) );
+
+        //3.
+        RoomInfoDto roomInfo = repository.getRoomInfoByRoomId(RoomId);
+        SocketMessageForm roomInfoForm = new SocketMessageForm(
+                "", "", HtmlCreator.getRoomByRoomInfo(roomInfo), "", SocketMessageType.CREATE_ROOMLIST);
+        String roomRequestStr = objectMapper.writeValueAsString(roomInfoForm);
+
+        //3-1.
+        session.sendMessage(new TextMessage(roomRequestStr));
+        //3-2.
+        for (WebSocketSession webSocketSession : sessions) {
+            if (getUserName(webSocketSession).equals(otherMember)) {
+                webSocketSession.sendMessage(new TextMessage(roomRequestStr));
+            }
+        }
+      }
 
     /**
      * 웹 브라우저에서 사용자가 대화방을 변경했을 때 최근 채팅 목록을 띄워 줄 수 있도록 메세지를 만들어 전송한다

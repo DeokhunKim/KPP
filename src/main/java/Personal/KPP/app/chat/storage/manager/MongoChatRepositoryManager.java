@@ -13,6 +13,7 @@ import Personal.KPP.core.domain.member.MemberGrade;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-//@Repository
+@Repository
 public class MongoChatRepositoryManager implements ChatRepositoryManager {
 
     @Autowired
@@ -117,10 +118,16 @@ public class MongoChatRepositoryManager implements ChatRepositoryManager {
     }
 
     @Override
-    public void saveMember(String name, MemberGrade grade) {
+    public boolean saveMember(String name, MemberGrade grade) {
         if (false == memberRepository.existsByUserName(name)) {
             memberRepository.save(new Member(name, grade));
+            return true;
         }
+        return false;
+    }
+
+    public boolean existsByUserName(String name) {
+        return memberRepository.existsByUserName(name);
     }
 
     RoomInfoDto transRoomInfoToDto(RoomInfo roomInfo){

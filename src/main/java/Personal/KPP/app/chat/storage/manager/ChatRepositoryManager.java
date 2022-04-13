@@ -27,7 +27,9 @@ public interface ChatRepositoryManager {
 
     public RoomInfoDto getRoomInfoByRoomId(String roomId);
 
-    public void saveMember(String name, MemberGrade grade);
+    public boolean saveMember(String name, MemberGrade grade);
+
+    public boolean existsByUserName(String name);
 
 
 }

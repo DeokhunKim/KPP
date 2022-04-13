@@ -23,7 +23,7 @@ import java.util.UUID;
 
 
 @Slf4j
-@Repository
+//@Repository
 @Transactional
 public class JpaChatRepositoryManager implements ChatRepositoryManager{
 
@@ -103,12 +103,18 @@ public class JpaChatRepositoryManager implements ChatRepositoryManager{
     }
 
     @Override
-    public void saveMember(String name, MemberGrade grade) {
+    public boolean saveMember(String name, MemberGrade grade) {
         if (jpaChatRepository.getMemberByUserName(name) != null) {
-            return;
+            return false;
         }
         Member memberEntity = new Member(name, grade);
         em.persist(memberEntity);
+        return true;
+    }
+
+    @Override
+    public boolean existsByUserName(String name) {
+        return false;
     }
 
     RoomInfoDto transRoomInfoToDto(RoomInfo roomInfo){

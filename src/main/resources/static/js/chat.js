@@ -27,6 +27,17 @@
 }
 };
 
+    // Add 버튼
+    $("#addBtn").on("click", function() {
+        var inputMessageBox = document.getElementById("inputMember");
+        let msg = inputMessageBox.value;
+        var json = JSON.stringify({
+            roomId:'', writer:userName, message:msg, time:new Date().getTime(),messageType:'ADD_ROOM'}) ;
+        console.log(json)
+        sendMessage(json);
+        inputMessageBox.value = null;
+});
+
     // Send 버튼
     $("#sendBtn").on("click", function() {
     sendMessageBoxEvent();

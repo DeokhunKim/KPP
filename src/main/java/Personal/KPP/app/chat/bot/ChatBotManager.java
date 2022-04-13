@@ -75,9 +75,9 @@ public class ChatBotManager {
         repository.createNewRoomDirect("Stress Test 2", Arrays.asList("tester2", "ChatBot_2"), "testRoom2"  );
         repository.createNewRoomDirect("Stress Test 3", Arrays.asList("tester3", "ChatBot_3"), "testRoom3"  );
 
-        repository.saveMember("tester1", MemberGrade.USER);
-        repository.saveMember("admin", MemberGrade.ADMIN);
-        repository.createNewRoomDirect("admin, tester1 대화방", Arrays.asList("admin", "tester1"),"testRoom4" );
+        //repository.saveMember("tester1", MemberGrade.USER);
+        //repository.saveMember("admin", MemberGrade.ADMIN);
+        //repository.createNewRoomDirect("admin, tester1 대화방", Arrays.asList("admin", "tester1"),"testRoom4" );
 
     }
 
