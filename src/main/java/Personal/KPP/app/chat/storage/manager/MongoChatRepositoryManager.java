@@ -22,7 +22,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Repository
+//@Repository
 public class MongoChatRepositoryManager implements ChatRepositoryManager {
 
     @Autowired

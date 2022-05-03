@@ -23,7 +23,7 @@ import java.util.UUID;
 
 
 @Slf4j
-//@Repository
+@Repository
 @Transactional
 public class JpaChatRepositoryManager implements ChatRepositoryManager{
 

@@ -67,13 +67,13 @@ public class ChatBotManager {
         repository.saveMember("ChatBot_1", MemberGrade.CHATBOT);
         repository.saveMember("ChatBot_2", MemberGrade.CHATBOT);
         repository.saveMember("ChatBot_3", MemberGrade.CHATBOT);
-        repository.saveMember("tester1", MemberGrade.USER);
-        repository.saveMember("tester2", MemberGrade.USER);
-        repository.saveMember("tester3", MemberGrade.USER);
+        //repository.saveMember("tester1", MemberGrade.USER);
+        //repository.saveMember("tester2", MemberGrade.USER);
+        //repository.saveMember("tester3", MemberGrade.USER);
 
-        repository.createNewRoomDirect("Stress Test 1", Arrays.asList("tester1", "ChatBot_1"), "testRoom1" );
-        repository.createNewRoomDirect("Stress Test 2", Arrays.asList("tester2", "ChatBot_2"), "testRoom2"  );
-        repository.createNewRoomDirect("Stress Test 3", Arrays.asList("tester3", "ChatBot_3"), "testRoom3"  );
+        //repository.createNewRoomDirect("Stress Test 1", Arrays.asList("tester1", "ChatBot_1"), "testRoom1" );
+        //repository.createNewRoomDirect("Stress Test 2", Arrays.asList("tester2", "ChatBot_2"), "testRoom2"  );
+        //repository.createNewRoomDirect("Stress Test 3", Arrays.asList("tester3", "ChatBot_3"), "testRoom3"  );
 
         //repository.saveMember("tester1", MemberGrade.USER);
         //repository.saveMember("admin", MemberGrade.ADMIN);
