@@ -5,4 +5,6 @@
 ### 주요 기능
 - #### 회원가입 / 로그인
 
-- #### Chat: https://github.com/DeokhunKim/KPP/wiki/Chat
+- #### Chat [링크](https://github.com/DeokhunKim/KPP/wiki/Chat)
+
+- #### Glossary Wiki [링크](https://github.com/DeokhunKim/KPP/wiki/Glossary-Wiki)
