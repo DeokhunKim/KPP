@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
 
-@FeignClient(name = "auth", url = "http://localhost:8099")
+@FeignClient(name = "auth", url = "http://52.78.234.7:8099")
 public interface MemberAPIService {
     @PostMapping("/api/member/join")
     Long registry(@RequestBody Map<String, String> user);
