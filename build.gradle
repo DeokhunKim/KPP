@@ -46,3 +46,13 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	enabled = false
+}
+
+bootJar{
+	archivesBaseName = 'KPP'
+	archiveFileName = 'KPP.jar'
+	archiveVersion = "0.0.0"
+}
