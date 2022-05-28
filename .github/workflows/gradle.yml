@@ -54,4 +54,4 @@ jobs:
           docker pull ${{ secrets.DOCKER_ID }}/kpp:${GITHUB_SHA::7}
           docker tag ${{ secrets.DOCKER_ID }}/kpp:${GITHUB_SHA::7} kpp
           docker stop kpp || true
-          docker run -d --rm --name kpp --network kpp kpp
+          docker run -d --rm --name kpp --network kpp -p 8080:8080 kpp
